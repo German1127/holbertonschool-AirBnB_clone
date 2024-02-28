@@ -28,8 +28,7 @@ class BaseModel:
         models.storage.save()
 
     def __str__(self):
-        txt = "[{}] ({}) {}"
-        return txt.format(self.__class__.__name__,
+        return "[{}] ({}) {}".format(self.__class__.__name__,
                           self.id, self.__dict__)
 
     def to_dict(self):
