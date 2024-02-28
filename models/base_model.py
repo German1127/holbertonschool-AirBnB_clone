@@ -28,9 +28,9 @@ class BaseModel:
         instance_dict = self.__dict__.copy()
         instance_dict['__class__'] = self.__class__.__name__
         if 'created_at' in instance_dict:
-            instance_dict['created_at'] =
-            instance_dict['created_at'].isoformat()
+            instance_dict['created_at'] = instance_dict
+            ['created_at'].isoformat()
         if 'updated_at' in instance_dict:
-            instance_dict['updated_at'] =
-            instance_dict['updated_at'].isoformat()
+            instance_dict['updated_at'] = instance_dict
+            ['updated_at'].isoformat()
         return instance_dict
