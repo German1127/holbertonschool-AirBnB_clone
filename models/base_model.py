@@ -11,17 +11,14 @@ from datetime import datetime
 
 class BaseModel:
     def __init__(self, *args, **kwargs):
-        if kwargs:
-            for keys, value in kwargs.items():
-                if keys == "created_at" or keys == "updated_at":
-                    value = datetime.strptime(value, "%Y-%m-%dT%H:%M:%S.%f")
+        if len(kwargs) is not 0:
+            for keys in kwargs:
                 if keys != "__class__":
-                    self.__dict__[keys] = value
+                    if keys == "created_at" or keys == "updated_at":
+                        setattr(self, keys, datetime.
+                                strptime(kwargs[keys], '%Y-%m-%dT%H:%M:%S.%f'))
         else:
-            self.id = str(uuid.uuid4())
-            self.created_at = datetime.now()
-            self.updated_at = datetime.now()
-            models.storage.new(self)
+            setattr(self, keys, kwargs[keys])
 
     def save(self):
         self.updated_at = datetime.now()
@@ -29,7 +26,7 @@ class BaseModel:
 
     def __str__(self):
         return "[{}] ({}) {}".format(self.__class__.__name__,
-                          self.id, self.__dict__)
+                                     self.id, self.__dict__)
 
     def to_dict(self):
         instance_dict = self.__dict__.copy()
