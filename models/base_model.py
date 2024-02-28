@@ -11,23 +11,31 @@ from datetime import datetime
 
 class BaseModel:
     def __init__(self, *args, **kwargs):
-        dat_format = "%Y-%m-%dT%H:%M:%S.%f"
-        self.id = str(uuid.uuid4())
-        self.created = datetime.today()
-        self.update = datetime.today()
-        if len(kwargs) != 0:
-            for key, value in kwargs.item():
-                if key == "created_at" or key == "updated_at":
-                    self.__dict__[key] = datetime.strptime(value, dat_format)
-                else:
-                    self.__dict__[key] = value
+        if kwargs:
+            for keys, value in kwargs.items():
+                if keys == "created_at" or keys == "updated_at":
+                    value = datetime.strptime(value, "%Y-%m-%dT%H:%M:%S.%f")
+                if keys != "__class__":
+                    self.__dict__[keys] = value
         else:
+            self.id = str(uuid.uuid4())
+            self.created_at = datetime.now()
+            self.updated_at = datetime.now()
             models.storage.new(self)
 
-    def __str__(self):
-        return "[{}] ({}) {}".format(self.__class__.__name__,
-                                     self.id, self.__dict__)
-
     def save(self):
-        self.update_at = datetime.now()
+        self.updated_at = datetime.now()
         models.storage.save()
+
+    def __str__(self):
+        txt = "[{}] ({}) {}"
+        return txt.format(self.__class__.__name__,
+                          self.id, self.__dict__)
+
+    def to_dict(self):
+        instance_dict = self.__dict__.copy()
+        instance_dict.update({"__class__": self.__class__.__name__})
+        instance_dict.update({"created_at": self.created_at.isoformat()})
+        instance_dict.update({"updated_at": self.updated_at.isoformat()})
+
+        return instance_dict
