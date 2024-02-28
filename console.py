@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+"""contains the shell entry point"""
 
 
 import cmd
