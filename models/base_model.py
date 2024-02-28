@@ -22,7 +22,6 @@ class BaseModel:
 
     def save(self):
         self.updated_at = datetime.now()
-        models.storage.save()
 
     def __str__(self):
         return "[{}] ({}) {}".format(self.__class__.__name__,
