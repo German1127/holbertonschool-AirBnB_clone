@@ -11,7 +11,7 @@ from datetime import datetime
 
 class BaseModel:
     def __init__(self, *args, **kwargs):
-        if len(kwargs) != 0:
+        if len(kwargs) is not 0:
             for keys in kwargs:
                 if keys != "__class__":
                     if keys == "created_at" or keys == "updated_at":
