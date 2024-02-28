@@ -25,6 +25,10 @@ class HBNBCommand(cmd.Cmd):
     def help_quit(self):
         print("Exit the program.")
 
+    def emptyline(self):
+        """an empty line + ENTER shouldn’t execute anything"""
+        pass
+
 
 if __name__ == "__main__":
     HBNBCommand().cmdloop()
