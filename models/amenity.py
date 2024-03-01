@@ -1,9 +1,8 @@
 #!/usr/bin/python3
-"""
-    amenety
-"""
+"""Class amenety"""
 from models.base_model import BaseModel
 
 
 class Amenity(BaseModel):
+    """Argument"""
     name = ""
