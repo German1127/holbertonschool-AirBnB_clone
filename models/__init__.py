@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 """storage initialization"""
 from models.engine.file_storage import FileStorage
 
