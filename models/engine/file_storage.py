@@ -9,6 +9,7 @@ from models.place import Place
 from models.amenity import Amenity
 from models.review import Review
 
+
 class FileStorage:
     """class that handles serialization"""
     __file_path = "file.json"
@@ -29,7 +30,7 @@ class FileStorage:
             serialized_objs[key] = obj.to_dict()
 
         with open(self.__file_path, 'w') as file_guard:
-            json.dump(serialized_objs, file_guard, indent = 4)
+            json.dump(serialized_objs, file_guard, indent=4)
 
     def reload(self):
         """method that deserializes"""
