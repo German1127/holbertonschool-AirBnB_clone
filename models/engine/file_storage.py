@@ -1,41 +1,39 @@
+#!/usr/bin/python3
+"""JSON file to instances"""
 import json
-from amenity import Amenity
-from base_model import BaseModel
-from city import City
-from place import Place
-from review import Review
-from state import State
-from user import User
-
+from models.base_model import BaseModel
+from models.user import User
+from models.state import State
+from models.city import City
+from models.place import Place
+from models.amenity import Amenity
+from models.review import Review
 
 class FileStorage:
-    """class that serializes instances to a JSON file and
-    deserializes the JSON file into instances"""
+    """class that handles serialization"""
     __file_path = "file.json"
     __objects = {}
 
     def all(self):
-        """public instance method that return dictionary __objects"""
+        """method that returns the dictionary objects"""
         return self.__objects
 
     def new(self, obj):
-        """public instance method that sets in __objects
-        the obj with key <obj class name>.id"""
-        key = f"{obj.__class__.__name__}.{obj.id}"
-        self.__objects[key] = obj
+        """method that sets in objects the object <obj>"""
+        self.__objects[f"{type(obj).__name__}.{obj.id}"] = obj
 
     def save(self):
-        """public instance method that serializes __objects to the JSON file"""
-        serialized_obj = {}
-        for key, obj in self.__objectis.items():
-            serialized_obj[key] = obj.to_dic()
-        with open(self.__file_path, "w") as json_file:
-            json.dump(serialized_obj, json_file)
+        """method that serializes objects to a JSON file"""
+        serialized_objs = {}
+        for key, obj in self.__objects.items():
+            serialized_objs[key] = obj.to_dict()
+
+        with open(self.__file_path, 'w') as file_guard:
+            json.dump(serialized_objs, file_guard, indent = 4)
 
     def reload(self):
-        """public instance method that deserializes the JSON
-        file to __objects"""
-        clases = {
+        """method that deserializes"""
+        classes = {
             "BaseModel": BaseModel,
             "User": User,
             "State": State,
@@ -48,8 +46,8 @@ class FileStorage:
             with open(FileStorage.__file_path, 'r') as guard:
                 serialized_objs = json.load(guard)
                 for x in serialized_objs.values():
-                    clasname = x["__class__"]
-                    self.new(clases[clasname](**x))
+                    classname = x["__class__"]
+                    self.new(classes[classname](**x))
 
         except FileNotFoundError:
             pass
