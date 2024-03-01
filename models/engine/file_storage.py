@@ -1,5 +1,11 @@
 import json
-import os
+from amenity import Amenity
+from base_model import BaseModel
+from city import City
+from place import Place
+from review import Review
+from state import State
+from user import User
 
 
 class FileStorage:
@@ -29,3 +35,21 @@ class FileStorage:
     def reload(self):
         """public instance method that deserializes the JSON
         file to __objects"""
+        clases = {
+            "BaseModel": BaseModel,
+            "User": User,
+            "State": State,
+            "City": City,
+            "Place": Place,
+            "Amenity": Amenity,
+            "Review": Review
+        }
+        try:
+            with open(FileStorage.__file_path, 'r') as guard:
+                serialized_objs = json.load(guard)
+                for x in serialized_objs.values():
+                    clasname = x["__class__"]
+                    self.new(clases[clasname](**x))
+
+        except FileNotFoundError:
+            pass
