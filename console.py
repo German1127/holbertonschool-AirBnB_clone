@@ -68,6 +68,10 @@ class HBNBCommand(cmd.Cmd):
     def help_update(self):
         """ Method that manages the help command for the update method. """
         print("The Update command updates the class information.")
+        
+    def emptyline(self):
+        """Method that creates an emppty line."""
+        pass
 
 
 if __name__ == "__main__":
