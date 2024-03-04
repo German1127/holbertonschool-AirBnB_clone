@@ -10,7 +10,8 @@ class TestCity(unittest.TestCase):
         instance.name = "Uruguay"
         key = instance.__class__.__name__ + "." + instance.id
         self.assertEqual(instance.name, 'Uruguay')
-        self.assertEqual(FileStorage._FileStorage__objects[key].name, instance.name)
+        self.assertEqual(FileStorage._FileStorage__objects[key].name,
+                         instance.name)
 
     if __name__ == '__main__':
         unittest.main()
