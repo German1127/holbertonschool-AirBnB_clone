@@ -2,6 +2,7 @@ import unittest
 from models.base_model import BaseModel
 from datetime import datetime
 
+
 class TestBaseModel(unittest.TestCase):
 
     def test_init(self):
@@ -31,8 +32,10 @@ class TestBaseModel(unittest.TestCase):
         self.assertIn('created_at', model_dict)
         self.assertIn('updated_at', model_dict)
         self.assertEqual(model_dict['__class__'], 'BaseModel')
-        self.assertEqual(model_dict['created_at'], model.created_at.isoformat())
-        self.assertEqual(model_dict['updated_at'], model.updated_at.isoformat())
+        self.assertEqual(model_dict['created_at'],
+                         model.created_at.isoformat())
+        self.assertEqual(model_dict['updated_at'],
+                         model.updated_at.isoformat())
 
     def test_unique_ids(self):
         model1 = BaseModel()
