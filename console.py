@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 
 
-"""Airnbnb project console."""
+"""Airnbnb console."""
 
 
 import cmd
@@ -91,7 +91,7 @@ class HBNBCommand(cmd.Cmd):
                 if command[0] in argdict.keys():
                     call = "{} {}".format(argl[0], command[1])
                     return argdict[command[0]](call)
-        print("*** Unknown syntax: {}".format(arg))
+        print("Unknown syntax: {}".format(arg))
         return False
 
     def emptyline(self):
@@ -101,9 +101,9 @@ class HBNBCommand(cmd.Cmd):
     def do_create(self, arg):
         """Method that creates a new instance of BaseModel."""
         if not arg:
-            print("** class name missing **")
+            print("class name missing")
         elif arg not in self.__classes:
-            print("** class doesn't exist **")
+            print("class doesn't exist")
         else:
             for key, val in self.__classes.items():
                 if key == arg:
@@ -114,31 +114,31 @@ class HBNBCommand(cmd.Cmd):
     def do_show(self, arg):
         """Method that prints the string representation of an instance."""
         if not arg:
-            print("** class name missing **")
+            print("class name missing")
         else:
             args = arg.split()
             if args[0] not in self.__classes:
-                print("** class doesn't exist **")
+                print("class doesn't exist")
             elif len(args) < 2:
-                print("** instance id missing **")
+                print("instance id missing")
             else:
                 key = args[0] + "." + args[1]
                 all_objects = storage.all()
                 if key in all_objects:
                     print(all_objects[key])
                 else:
-                    print("** no instance found **")
+                    print("no instance fund")
 
     def do_destroy(self, arg):
-        """Method that deletes instances based on the class name and id"""
+        """Method that deletes on the class name and id"""
         if not arg:
-            print("** class name missing **")
+            print("class name missing")
         else:
             args = arg.split()
             if args[0] not in self.__classes:
-                print("** class doesn't exist **")
+                print("class doesn't exist")
             elif len(args) < 2:
-                print("** instance id missing **")
+                print("instance id missing")
             else:
                 key = args[0] + "." + args[1]
                 all_objects = storage.all()
@@ -146,7 +146,7 @@ class HBNBCommand(cmd.Cmd):
                     del all_objects[key]
                     storage.save()
                 else:
-                    print("** no instance found **")
+                    print("no instance found")
 
     def do_all(self, arg):
         """Method that prints all string representation of all instances"""
@@ -157,7 +157,7 @@ class HBNBCommand(cmd.Cmd):
         else:
             args = arg.split()
             if args[0] not in self.__classes:
-                print("** class doesn't exist **")
+                print("class doesn't exist")
             else:
                 all_objects = storage.all()
                 for obj_key, obj in all_objects.items():
@@ -167,19 +167,19 @@ class HBNBCommand(cmd.Cmd):
     def do_update(self, arg):
         arguments = arg.split()
         if not arg:
-            print("** class name missing **")
+            print("class name missing")
         elif arguments[0] not in self.__classes:
-            print("** class doesn't exist **")
+            print("class doesn't exist")
         elif len(arguments) < 2:
-            print("** instance id missing **")
+            print("instance id missing")
         else:
             key = f"{arguments[0]}.{arguments[1]}"
             if key not in storage.all().keys():
-                print("** no instance found **")
+                print("no instance found")
             elif len(arguments) < 3:
-                print("** attribute name missing **")
+                print("attribute name missing")
             elif len(arguments) < 4:
-                print("** value missing **")
+                print("value missing")
             else:
                 content = arguments[3]
 
